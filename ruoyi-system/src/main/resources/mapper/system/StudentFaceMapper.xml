@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.StudentFaceMapper">
+    
+    <resultMap type="StudentFace" id="StudentFaceResult">
+        <result property="idcard"    column="idcard"    />
+        <result property="faceId"    column="face_id"    />
+        <result property="faceFeature"    column="face_feature"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectStudentFaceVo">
+        select idcard, face_id, face_feature, create_time, update_time from student_face
+    </sql>
+
+    <select id="selectStudentFaceList" parameterType="StudentFace" resultMap="StudentFaceResult">
+        <include refid="selectStudentFaceVo"/>
+        <where>  
+            <if test="idcard != null "> and idcard = #{idcard}</if>
+        </where>
+    </select>
+    
+    <select id="selectStudentFaceByIdcard" parameterType="Integer" resultMap="StudentFaceResult">
+        <include refid="selectStudentFaceVo"/>
+        where idcard = #{idcard}
+    </select>
+        
+    <insert id="insertStudentFace" parameterType="StudentFace">
+        insert into student_face
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="idcard != null">idcard,</if>
+            <if test="faceId != null">face_id,</if>
+            <if test="faceFeature != null">face_feature,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="idcard != null">#{idcard},</if>
+            <if test="faceId != null">#{faceId},</if>
+            <if test="faceFeature != null">#{faceFeature},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateStudentFace" parameterType="StudentFace">
+        update student_face
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="faceId != null">face_id = #{faceId},</if>
+            <if test="faceFeature != null">face_feature = #{faceFeature},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where idcard = #{idcard}
+    </update>
+
+    <delete id="deleteStudentFaceByIdcard" parameterType="Integer">
+        delete from student_face where idcard = #{idcard}
+    </delete>
+
+    <delete id="deleteStudentFaceByIdcards" parameterType="String">
+        delete from student_face where idcard in 
+        <foreach item="idcard" collection="array" open="(" separator="," close=")">
+            #{idcard}
+        </foreach>
+    </delete>
+
+</mapper>

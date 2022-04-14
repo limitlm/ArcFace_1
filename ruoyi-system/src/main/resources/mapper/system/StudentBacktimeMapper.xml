@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.StudentBacktimeMapper">
+    
+    <resultMap type="StudentBacktime" id="StudentBacktimeResult">
+        <result property="idcard"    column="idcard"    />
+        <result property="name"    column="name"    />
+        <result property="backtime"    column="backtime"    />
+    </resultMap>
+
+    <sql id="selectStudentBacktimeVo">
+        select idcard, name, backtime from student_backtime
+    </sql>
+
+    <select id="selectStudentBacktimeList" parameterType="StudentBacktime" resultMap="StudentBacktimeResult">
+        <include refid="selectStudentBacktimeVo"/>
+        <where>  
+            <if test="idcard != null "> and idcard = #{idcard}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectStudentBacktimeByIdcard" parameterType="Integer" resultMap="StudentBacktimeResult">
+        <include refid="selectStudentBacktimeVo"/>
+        where idcard = #{idcard}
+    </select>
+        
+    <insert id="insertStudentBacktime" parameterType="StudentBacktime">
+        insert into student_backtime
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="idcard != null">idcard,</if>
+            <if test="name != null">name,</if>
+            <if test="backtime != null">backtime,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="idcard != null">#{idcard},</if>
+            <if test="name != null">#{name},</if>
+            <if test="backtime != null">#{backtime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateStudentBacktime" parameterType="StudentBacktime">
+        update student_backtime
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="backtime != null">backtime = #{backtime},</if>
+        </trim>
+        where idcard = #{idcard}
+    </update>
+
+    <delete id="deleteStudentBacktimeByIdcard" parameterType="Integer">
+        delete from student_backtime where idcard = #{idcard}
+    </delete>
+
+    <delete id="deleteStudentBacktimeByIdcards" parameterType="String">
+        delete from student_backtime where idcard in 
+        <foreach item="idcard" collection="array" open="(" separator="," close=")">
+            #{idcard}
+        </foreach>
+    </delete>
+
+</mapper>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.StudentOuttimeMapper">
+    
+    <resultMap type="StudentOuttime" id="StudentOuttimeResult">
+        <result property="idcard"    column="idcard"    />
+        <result property="name"    column="name"    />
+        <result property="outtime"    column="outtime"    />
+    </resultMap>
+
+    <sql id="selectStudentOuttimeVo">
+        select idcard, name, outtime from student_outtime
+    </sql>
+
+    <select id="selectStudentOuttimeList" parameterType="StudentOuttime" resultMap="StudentOuttimeResult">
+        <include refid="selectStudentOuttimeVo"/>
+        <where>  
+            <if test="idcard != null "> and idcard = #{idcard}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectStudentOuttimeByIdcard" parameterType="Integer" resultMap="StudentOuttimeResult">
+        <include refid="selectStudentOuttimeVo"/>
+        where idcard = #{idcard}
+    </select>
+        
+    <insert id="insertStudentOuttime" parameterType="StudentOuttime">
+        insert into student_outtime
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="idcard != null">idcard,</if>
+            <if test="name != null">name,</if>
+            <if test="outtime != null">outtime,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="idcard != null">#{idcard},</if>
+            <if test="name != null">#{name},</if>
+            <if test="outtime != null">#{outtime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateStudentOuttime" parameterType="StudentOuttime">
+        update student_outtime
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="outtime != null">outtime = #{outtime},</if>
+        </trim>
+        where idcard = #{idcard}
+    </update>
+
+    <delete id="deleteStudentOuttimeByIdcard" parameterType="Integer">
+        delete from student_outtime where idcard = #{idcard}
+    </delete>
+
+    <delete id="deleteStudentOuttimeByIdcards" parameterType="String">
+        delete from student_outtime where idcard in 
+        <foreach item="idcard" collection="array" open="(" separator="," close=")">
+            #{idcard}
+        </foreach>
+    </delete>
+
+</mapper>

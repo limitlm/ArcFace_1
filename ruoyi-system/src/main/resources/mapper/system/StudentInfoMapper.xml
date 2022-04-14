@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.StudentInfoMapper">
+    
+    <resultMap type="StudentInfo" id="StudentInfoResult">
+        <result property="idcard"    column="idcard"    />
+        <result property="name"    column="name"    />
+        <result property="gender"    column="gender"    />
+        <result property="grade"    column="grade"    />
+        <result property="major"    column="major"    />
+        <result property="stucla"    column="stucla"    />
+        <result property="phone"    column="phone"    />
+        <result property="fpath"    column="fpath"    />
+        <result property="isin"    column="isin"    />
+    </resultMap>
+
+    <sql id="selectStudentInfoVo">
+        select idcard, name, gender, grade, major, stucla, phone, fpath, isin from student_info
+    </sql>
+
+    <select id="selectStudentInfoList" parameterType="StudentInfo" resultMap="StudentInfoResult">
+        <include refid="selectStudentInfoVo"/>
+        <where>  
+            <if test="idcard != null "> and idcard = #{idcard}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="gender != null  and gender != ''"> and gender = #{gender}</if>
+            <if test="grade != null  and grade != ''"> and grade = #{grade}</if>
+            <if test="major != null  and major != ''"> and major = #{major}</if>
+            <if test="stucla != null  and stucla != ''"> and stucla = #{stucla}</if>
+            <if test="isin != null  and isin != ''"> and isin = #{isin}</if>
+        </where>
+    </select>
+    
+    <select id="selectStudentInfoByIdcard" parameterType="Integer" resultMap="StudentInfoResult">
+        <include refid="selectStudentInfoVo"/>
+        where idcard = #{idcard}
+    </select>
+        
+    <insert id="insertStudentInfo" parameterType="StudentInfo">
+        insert into student_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="idcard != null">idcard,</if>
+            <if test="name != null and name != ''">name,</if>
+            <if test="gender != null and gender != ''">gender,</if>
+            <if test="grade != null">grade,</if>
+            <if test="major != null">major,</if>
+            <if test="stucla != null">stucla,</if>
+            <if test="phone != null and phone != ''">phone,</if>
+            <if test="fpath != null and fpath != ''">fpath,</if>
+            <if test="isin != null">isin,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="idcard != null">#{idcard},</if>
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="gender != null and gender != ''">#{gender},</if>
+            <if test="grade != null">#{grade},</if>
+            <if test="major != null">#{major},</if>
+            <if test="stucla != null">#{stucla},</if>
+            <if test="phone != null and phone != ''">#{phone},</if>
+            <if test="fpath != null and fpath != ''">#{fpath},</if>
+            <if test="isin != null">#{isin},</if>
+         </trim>
+    </insert>
+
+    <update id="updateStudentInfo" parameterType="StudentInfo">
+        update student_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="gender != null and gender != ''">gender = #{gender},</if>
+            <if test="grade != null">grade = #{grade},</if>
+            <if test="major != null">major = #{major},</if>
+            <if test="stucla != null">stucla = #{stucla},</if>
+            <if test="phone != null and phone != ''">phone = #{phone},</if>
+            <if test="fpath != null and fpath != ''">fpath = #{fpath},</if>
+            <if test="isin != null">isin = #{isin},</if>
+        </trim>
+        where idcard = #{idcard}
+    </update>
+
+    <delete id="deleteStudentInfoByIdcard" parameterType="Integer">
+        delete from student_info where idcard = #{idcard}
+    </delete>
+
+    <delete id="deleteStudentInfoByIdcards" parameterType="String">
+        delete from student_info where idcard in 
+        <foreach item="idcard" collection="array" open="(" separator="," close=")">
+            #{idcard}
+        </foreach>
+    </delete>
+
+</mapper>
