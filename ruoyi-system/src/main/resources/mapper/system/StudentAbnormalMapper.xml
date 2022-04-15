@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.StudentAbnormalMapper">
+    
+    <resultMap type="StudentAbnormal" id="StudentAbnormalResult">
+        <result property="num"    column="num"    />
+        <result property="idcard"    column="idcard"    />
+        <result property="name"    column="name"    />
+        <result property="grade"    column="grade"    />
+        <result property="major"    column="major"    />
+        <result property="stucla"    column="stucla"    />
+        <result property="phone"    column="phone"    />
+        <result property="abntime"    column="abntime"    />
+    </resultMap>
+
+    <sql id="selectStudentAbnormalVo">
+        select num, idcard, name, grade, major, stucla, phone, abntime from student_abnormal
+    </sql>
+
+    <select id="selectStudentAbnormalList" parameterType="StudentAbnormal" resultMap="StudentAbnormalResult">
+        <include refid="selectStudentAbnormalVo"/>
+        <where>  
+            <if test="idcard != null "> and idcard = #{idcard}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="grade != null  and grade != ''"> and grade = #{grade}</if>
+            <if test="major != null  and major != ''"> and major = #{major}</if>
+            <if test="stucla != null  and stucla != ''"> and stucla = #{stucla}</if>
+            <if test="params.beginAbntime != null and params.beginAbntime != '' and params.endAbntime != null and params.endAbntime != ''"> and abntime between #{params.beginAbntime} and #{params.endAbntime}</if>
+        </where>
+    </select>
+    
+    <select id="selectStudentAbnormalByNum" parameterType="Integer" resultMap="StudentAbnormalResult">
+        <include refid="selectStudentAbnormalVo"/>
+        where num = #{num}
+    </select>
+        
+    <insert id="insertStudentAbnormal" parameterType="StudentAbnormal" useGeneratedKeys="true" keyProperty="num">
+        insert into student_abnormal
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="idcard != null">idcard,</if>
+            <if test="name != null">name,</if>
+            <if test="grade != null">grade,</if>
+            <if test="major != null">major,</if>
+            <if test="stucla != null">stucla,</if>
+            <if test="phone != null">phone,</if>
+            <if test="abntime != null">abntime,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="idcard != null">#{idcard},</if>
+            <if test="name != null">#{name},</if>
+            <if test="grade != null">#{grade},</if>
+            <if test="major != null">#{major},</if>
+            <if test="stucla != null">#{stucla},</if>
+            <if test="phone != null">#{phone},</if>
+            <if test="abntime != null">#{abntime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateStudentAbnormal" parameterType="StudentAbnormal">
+        update student_abnormal
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="idcard != null">idcard = #{idcard},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="grade != null">grade = #{grade},</if>
+            <if test="major != null">major = #{major},</if>
+            <if test="stucla != null">stucla = #{stucla},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="abntime != null">abntime = #{abntime},</if>
+        </trim>
+        where num = #{num}
+    </update>
+
+    <delete id="deleteStudentAbnormalByNum" parameterType="Integer">
+        delete from student_abnormal where num = #{num}
+    </delete>
+
+    <delete id="deleteStudentAbnormalByNums" parameterType="String">
+        delete from student_abnormal where num in 
+        <foreach item="num" collection="array" open="(" separator="," close=")">
+            #{num}
+        </foreach>
+    </delete>
+
+</mapper>
