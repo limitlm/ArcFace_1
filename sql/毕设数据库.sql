@@ -78,7 +78,7 @@ CREATE TABLE `student_abnormal`  (
   `major` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '专业',
   `stucla` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '班级',
   `phone` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '电话',
-  `abntime` timestamp(0) NULL DEFAULT NULL COMMENT '日期',
+  `abntime` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '日期',
   PRIMARY KEY (`num`),
   FOREIGN KEY (`idcard`) REFERENCES `student_info` (`idcard`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1;
