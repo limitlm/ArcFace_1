@@ -19,6 +19,16 @@
                                 <input type="text" name="name"/>
                             </li>
                             <li>
+                                <label>归寝状态：</label>
+                                <input type="text" name="backstatus"/>
+                            </li>
+                            <li class="select-time">
+                                <label>归寝时间：</label>
+                                <input type="text" class="time-input" id="startTime" placeholder="开始时间" name="params[beginBacktime]"/>
+                                <span>-</span>
+                                <input type="text" class="time-input" id="endTime" placeholder="结束时间" name="params[endBacktime]"/>
+                            </li>
+                            <li>
                                 <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
                                 <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
                             </li>
@@ -74,6 +84,10 @@
                 {
                     field: 'backtime',
                     title: '归寝时间'
+                },
+                {
+                    field: 'backstatus',
+                    title: '归寝状态'
                 },
                 {
                     title: '操作',

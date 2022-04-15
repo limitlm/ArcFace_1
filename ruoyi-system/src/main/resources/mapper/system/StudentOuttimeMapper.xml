@@ -19,6 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <where>  
             <if test="idcard != null "> and idcard = #{idcard}</if>
             <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="params.beginOuttime != null and params.beginOuttime != '' and params.endOuttime != null and params.endOuttime != ''"> and outtime between #{params.beginOuttime} and #{params.endOuttime}</if>
         </where>
     </select>
     

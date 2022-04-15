@@ -8,10 +8,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="idcard"    column="idcard"    />
         <result property="name"    column="name"    />
         <result property="backtime"    column="backtime"    />
+        <result property="backstatus"    column="backstatus"    />
     </resultMap>
 
     <sql id="selectStudentBacktimeVo">
-        select idcard, name, backtime from student_backtime
+        select idcard, name, backtime, backstatus from student_backtime
     </sql>
 
     <select id="selectStudentBacktimeList" parameterType="StudentBacktime" resultMap="StudentBacktimeResult">
@@ -19,6 +20,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <where>  
             <if test="idcard != null "> and idcard = #{idcard}</if>
             <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="params.beginBacktime != null and params.beginBacktime != '' and params.endBacktime != null and params.endBacktime != ''"> and backtime between #{params.beginBacktime} and #{params.endBacktime}</if>
+            <if test="backstatus != null  and backstatus != ''"> and backstatus = #{backstatus}</if>
         </where>
     </select>
     
@@ -33,11 +36,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="idcard != null">idcard,</if>
             <if test="name != null">name,</if>
             <if test="backtime != null">backtime,</if>
+            <if test="backstatus != null">backstatus,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="idcard != null">#{idcard},</if>
             <if test="name != null">#{name},</if>
             <if test="backtime != null">#{backtime},</if>
+            <if test="backstatus != null">#{backstatus},</if>
          </trim>
     </insert>
 
@@ -46,6 +51,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <trim prefix="SET" suffixOverrides=",">
             <if test="name != null">name = #{name},</if>
             <if test="backtime != null">backtime = #{backtime},</if>
+            <if test="backstatus != null">backstatus = #{backstatus},</if>
         </trim>
         where idcard = #{idcard}
     </update>

@@ -49,7 +49,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="stucla != null">stucla,</if>
             <if test="phone != null and phone != ''">phone,</if>
             <if test="fpath != null and fpath != ''">fpath,</if>
-            <if test="isin != null">isin,</if>
+            <if test="isin != null and isin != ''">isin,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="idcard != null">#{idcard},</if>
@@ -60,7 +60,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="stucla != null">#{stucla},</if>
             <if test="phone != null and phone != ''">#{phone},</if>
             <if test="fpath != null and fpath != ''">#{fpath},</if>
-            <if test="isin != null">#{isin},</if>
+            <if test="isin != null and isin != ''">#{isin},</if>
          </trim>
     </insert>
 
@@ -74,7 +74,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="stucla != null">stucla = #{stucla},</if>
             <if test="phone != null and phone != ''">phone = #{phone},</if>
             <if test="fpath != null and fpath != ''">fpath = #{fpath},</if>
-            <if test="isin != null">isin = #{isin},</if>
+            <if test="isin != null and isin != ''">isin = #{isin},</if>
         </trim>
         where idcard = #{idcard}
     </update>

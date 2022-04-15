@@ -30,6 +30,10 @@ public class StudentBacktime extends BaseEntity
     @Excel(name = "归寝时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
     private Date backtime;
 
+    /** 归寝状态 */
+    @Excel(name = "归寝状态")
+    private String backstatus;
+
     public void setIdcard(Integer idcard) 
     {
         this.idcard = idcard;
@@ -57,6 +61,15 @@ public class StudentBacktime extends BaseEntity
     {
         return backtime;
     }
+    public void setBackstatus(String backstatus) 
+    {
+        this.backstatus = backstatus;
+    }
+
+    public String getBackstatus() 
+    {
+        return backstatus;
+    }
 
     @Override
     public String toString() {
@@ -64,6 +77,7 @@ public class StudentBacktime extends BaseEntity
             .append("idcard", getIdcard())
             .append("name", getName())
             .append("backtime", getBacktime())
+            .append("backstatus", getBackstatus())
             .toString();
     }
 }

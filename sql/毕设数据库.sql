@@ -24,13 +24,13 @@ DROP TABLE IF EXISTS `student_info`;
 CREATE TABLE `student_info`  (
   `idcard` int(8) NOT NULL COMMENT '学号',
   `name` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '姓名',
-  `gender` varchar(4) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '性别',
+  `gender` varchar(4) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '未知' COMMENT '性别',
   `grade` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '年级',
   `major` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '专业',
   `stucla` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '班级',
   `phone` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '电话',
   `fpath` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '照片路径',
-  `isin` varchar(4) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '在寝状态',
+  `isin` varchar(4) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '未知' COMMENT '在寝状态',
   PRIMARY KEY (`idcard`)
 ) ENGINE = InnoDB;
 
@@ -53,6 +53,7 @@ CREATE TABLE `student_backtime`  (
   `idcard` int(8) NOT NULL COMMENT '学号',
   `name` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '姓名',
   `backtime` timestamp(0) NULL DEFAULT NULL COMMENT '归寝时间',
+  `backstatus` varchar(4) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '未知' COMMENT '归寝状态',
   FOREIGN KEY (`idcard`) REFERENCES `student_info` (`idcard`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = InnoDB;
 
@@ -77,7 +78,7 @@ CREATE TABLE `student_abnormal`  (
   `major` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '专业',
   `stucla` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '班级',
   `phone` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '电话',
-  `status` varchar(4) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '异常原因',
+  `abntime` timestamp(0) NULL DEFAULT NULL COMMENT '日期',
   PRIMARY KEY (`num`),
   FOREIGN KEY (`idcard`) REFERENCES `student_info` (`idcard`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB;
+) ENGINE = InnoDB AUTO_INCREMENT = 1;
