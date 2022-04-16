@@ -39,6 +39,7 @@ CREATE TABLE `student_info`  (
 DROP TABLE IF EXISTS `student_face`;
 CREATE TABLE `student_face`  (
   `idcard` int(8) NOT NULL COMMENT '学号',
+  `name` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '姓名',
   `face_id` varchar(31) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '人脸id',
   `face_feature` blob NULL COMMENT '人脸特征',
   `create_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',

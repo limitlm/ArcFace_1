@@ -6,6 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <resultMap type="StudentFace" id="StudentFaceResult">
         <result property="idcard"    column="idcard"    />
+        <result property="name"    column="name"    />
         <result property="faceId"    column="face_id"    />
         <result property="faceFeature"    column="face_feature"    />
         <result property="createTime"    column="create_time"    />
@@ -13,13 +14,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectStudentFaceVo">
-        select idcard, face_id, face_feature, create_time, update_time from student_face
+        select idcard, name, face_id, face_feature, create_time, update_time from student_face
     </sql>
 
     <select id="selectStudentFaceList" parameterType="StudentFace" resultMap="StudentFaceResult">
         <include refid="selectStudentFaceVo"/>
         <where>  
             <if test="idcard != null "> and idcard = #{idcard}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="faceId != null  and faceId != ''"> and face_id = #{faceId}</if>
+            <if test="faceFeature != null  and faceFeature != ''"> and face_feature = #{faceFeature}</if>
+            <if test="params.beginCreateTime != null and params.beginCreateTime != '' and params.endCreateTime != null and params.endCreateTime != ''"> and create_time between #{params.beginCreateTime} and #{params.endCreateTime}</if>
         </where>
     </select>
     
@@ -32,6 +37,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         insert into student_face
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="idcard != null">idcard,</if>
+            <if test="name != null">name,</if>
             <if test="faceId != null">face_id,</if>
             <if test="faceFeature != null">face_feature,</if>
             <if test="createTime != null">create_time,</if>
@@ -39,6 +45,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="idcard != null">#{idcard},</if>
+            <if test="name != null">#{name},</if>
             <if test="faceId != null">#{faceId},</if>
             <if test="faceFeature != null">#{faceFeature},</if>
             <if test="createTime != null">#{createTime},</if>
@@ -49,6 +56,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <update id="updateStudentFace" parameterType="StudentFace">
         update student_face
         <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
             <if test="faceId != null">face_id = #{faceId},</if>
             <if test="faceFeature != null">face_feature = #{faceFeature},</if>
             <if test="createTime != null">create_time = #{createTime},</if>

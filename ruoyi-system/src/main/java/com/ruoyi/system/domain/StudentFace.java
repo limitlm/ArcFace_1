@@ -9,7 +9,7 @@ import com.ruoyi.common.core.domain.BaseEntity;
  * 人脸信息对象 student_face
  * 
  * @author 付林铭
- * @date 2022-04-15
+ * @date 2022-04-16
  */
 public class StudentFace extends BaseEntity
 {
@@ -18,6 +18,10 @@ public class StudentFace extends BaseEntity
     /** 学号 */
     @Excel(name = "学号")
     private Integer idcard;
+
+    /** 姓名 */
+    @Excel(name = "姓名")
+    private String name;
 
     /** 人脸id */
     @Excel(name = "人脸id")
@@ -35,6 +39,15 @@ public class StudentFace extends BaseEntity
     public Integer getIdcard() 
     {
         return idcard;
+    }
+    public void setName(String name) 
+    {
+        this.name = name;
+    }
+
+    public String getName() 
+    {
+        return name;
     }
     public void setFaceId(String faceId) 
     {
@@ -59,6 +72,7 @@ public class StudentFace extends BaseEntity
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("idcard", getIdcard())
+            .append("name", getName())
             .append("faceId", getFaceId())
             .append("faceFeature", getFaceFeature())
             .append("createTime", getCreateTime())
