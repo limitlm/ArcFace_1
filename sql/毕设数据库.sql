@@ -53,7 +53,7 @@ DROP TABLE IF EXISTS `student_backtime`;
 CREATE TABLE `student_backtime`  (
   `idcard` int(8) NOT NULL COMMENT '学号',
   `name` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '姓名',
-  `backtime` timestamp(0) NULL DEFAULT NULL COMMENT '归寝时间',
+  `backtime` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '归寝时间',
   `backstatus` varchar(4) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '未知' COMMENT '归寝状态',
   FOREIGN KEY (`idcard`) REFERENCES `student_info` (`idcard`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = InnoDB;
@@ -64,7 +64,7 @@ DROP TABLE IF EXISTS `student_outtime`;
 CREATE TABLE `student_outtime`  (
   `idcard` int(8) NOT NULL COMMENT '学号',
   `name` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '姓名',
-  `outtime` timestamp(0) NULL DEFAULT NULL COMMENT '出寝时间',
+  `outtime` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '出寝时间',
   FOREIGN KEY (`idcard`) REFERENCES `student_info` (`idcard`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = InnoDB;
 
