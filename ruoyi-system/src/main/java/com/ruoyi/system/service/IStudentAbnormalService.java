@@ -36,6 +36,14 @@ public interface IStudentAbnormalService
     public int insertStudentAbnormal(StudentAbnormal studentAbnormal);
 
     /**
+     * 定时新增不归记录
+     *
+     *
+     * @return 结果
+     */
+    public void insertAbnormal();
+
+    /**
      * 修改不归记录
      * 
      * @param studentAbnormal 不归记录

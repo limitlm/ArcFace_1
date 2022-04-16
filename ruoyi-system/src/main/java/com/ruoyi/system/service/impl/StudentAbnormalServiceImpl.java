@@ -57,6 +57,18 @@ public class StudentAbnormalServiceImpl implements IStudentAbnormalService
     }
 
     /**
+     * 定时新增不归记录
+     *
+     *
+     * @return 结果
+     */
+    @Override
+    public void insertAbnormal()
+    {
+        studentAbnormalMapper.insertAbnormal();
+    }
+
+    /**
      * 修改不归记录
      * 
      * @param studentAbnormal 不归记录

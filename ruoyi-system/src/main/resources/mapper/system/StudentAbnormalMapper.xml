@@ -58,6 +58,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          </trim>
     </insert>
 
+    <insert id="insertAbnormal">
+        INSERT INTO student_abnormal(idcard,`name`,grade,major,stucla,phone) SELECT idcard,`name`,grade,major,stucla,phone FROM student_info WHERE isin='不在'
+    </insert>
+
     <update id="updateStudentAbnormal" parameterType="StudentAbnormal">
         update student_abnormal
         <trim prefix="SET" suffixOverrides=",">
