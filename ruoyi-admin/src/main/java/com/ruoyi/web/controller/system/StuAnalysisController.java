@@ -3,6 +3,7 @@ package com.ruoyi.web.controller.system;
 import com.google.gson.Gson;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.system.domain.Echarts;
+import com.ruoyi.system.service.IStudentAbnormalService;
 import com.ruoyi.system.service.IStudentInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +28,8 @@ public class StuAnalysisController extends BaseController {
 
     @Autowired
     private IStudentInfoService iStudentInfoService;
+    @Autowired
+    private IStudentAbnormalService iStudentAbnormalService;
 
     @GetMapping()
     public String stuanalysis() {
@@ -34,27 +37,32 @@ public class StuAnalysisController extends BaseController {
     }
 
     /**
-     * 查询echarts列表
+     * 查询在寝情况
      */
-    @PostMapping("/list")
+    @PostMapping("/zqqk")
     @ResponseBody
     public String list() {
-/*        List<Echarts> list = echartsService.findAll(echarts);
-        List<Echarts> list = new ArrayList<>();
-        Echarts echarts1 = new Echarts("在寝", 12);
-        Echarts echarts2 = new Echarts("不在", 4);
-        Echarts echarts3 = new Echarts("未知", 34);
-        list.add(echarts1);
-        list.add(echarts2);
-        list.add(echarts3);*/
         List<Echarts> list = iStudentInfoService.countIsin();
         for (Echarts string : list) {
             System.out.println(string);
         }
         //转换json
         Gson gson = new Gson();
-        //获取list中第一个字段name和num
-//        System.err.println(list.get(0).getName() + "----" + list.get(0).getNum());
+        return gson.toJson(list);
+    }
+
+    /**
+     * 查询在寝情况
+     */
+    @PostMapping("/bgqk")
+    @ResponseBody
+    public String bgqk() {
+        List<Echarts> list = iStudentAbnormalService.countAbn();
+        for (Echarts string : list) {
+            System.out.println(string);
+        }
+        //转换json
+        Gson gson = new Gson();
         return gson.toJson(list);
     }
 

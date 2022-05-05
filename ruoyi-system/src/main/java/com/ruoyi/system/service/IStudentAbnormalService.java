@@ -1,6 +1,8 @@
 package com.ruoyi.system.service;
 
 import java.util.List;
+
+import com.ruoyi.system.domain.Echarts;
 import com.ruoyi.system.domain.StudentAbnormal;
 
 /**
@@ -26,6 +28,13 @@ public interface IStudentAbnormalService
      * @return 不归记录集合
      */
     public List<StudentAbnormal> selectStudentAbnormalList(StudentAbnormal studentAbnormal);
+
+    /**
+     * 查询学生当前在寝状态人数
+     *
+     * @return 在寝状态List
+     */
+    List<Echarts> countAbn();
 
     /**
      * 新增不归记录

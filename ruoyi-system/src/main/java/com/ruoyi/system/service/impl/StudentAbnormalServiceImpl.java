@@ -1,6 +1,8 @@
 package com.ruoyi.system.service.impl;
 
 import java.util.List;
+
+import com.ruoyi.system.domain.Echarts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.system.mapper.StudentAbnormalMapper;
@@ -42,6 +44,11 @@ public class StudentAbnormalServiceImpl implements IStudentAbnormalService
     public List<StudentAbnormal> selectStudentAbnormalList(StudentAbnormal studentAbnormal)
     {
         return studentAbnormalMapper.selectStudentAbnormalList(studentAbnormal);
+    }
+
+    @Override
+    public List<Echarts> countAbn() {
+        return studentAbnormalMapper.countAbn();
     }
 
     /**

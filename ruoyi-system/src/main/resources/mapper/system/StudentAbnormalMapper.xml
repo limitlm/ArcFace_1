@@ -35,6 +35,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectStudentAbnormalVo"/>
         where num = #{num}
     </select>
+
+    <select id="countAbn" resultType="echarts">
+        SELECT DATE_FORMAT(abntime,'%Y-%m-%d') AS name,COUNT(*) AS num FROM student_abnormal WHERE TO_DAYS(NOW())-TO_DAYS(abntime)&lt;7 GROUP BY DATE_FORMAT(abntime,'%Y-%m-%d')
+    </select>
         
     <insert id="insertStudentAbnormal" parameterType="StudentAbnormal" useGeneratedKeys="true" keyProperty="num">
         insert into student_abnormal

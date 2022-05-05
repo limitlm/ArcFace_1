@@ -1,6 +1,8 @@
 package com.ruoyi.system.mapper;
 
 import java.util.List;
+
+import com.ruoyi.system.domain.Echarts;
 import com.ruoyi.system.domain.StudentAbnormal;
 
 /**
@@ -26,6 +28,13 @@ public interface StudentAbnormalMapper
      * @return 不归记录集合
      */
     public List<StudentAbnormal> selectStudentAbnormalList(StudentAbnormal studentAbnormal);
+
+    /**
+     * 查询学生不归人数
+     *
+     * @return 不归情况List
+     */
+    List<Echarts> countAbn();
 
     /**
      * 新增不归记录

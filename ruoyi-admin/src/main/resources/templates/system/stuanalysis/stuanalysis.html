@@ -11,6 +11,11 @@
                 <div id="pieEcharts" class="echarts"></div>
             </div>
         </div>
+        <div class="col-xs-6">
+            <div class="ibox-content">
+                <div id="lineEcharts" class="echarts"></div>
+            </div>
+        </div>
     </div>
 
 </div>
@@ -33,7 +38,7 @@
         $.ajax({
             type: "post",
             async: "true",//异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
-            url: prefix + "/list",
+            url: prefix + "/zqqk",
             data: {},
             dataType: "json",
             success: function (result) {
@@ -49,7 +54,7 @@
                     pieChart.hideLoading();//隐藏加载动画
                     pieChart.setOption({//加载数据图表
                         title: {
-                            text: '实时学生在寝状态统计饼图',
+                            text: '实时学生在寝情况统计',
                             x: 'center'
                         },
                         //工具箱
@@ -68,7 +73,7 @@
                         },
                         legend: {
                             orient: 'vertical',
-                            x: 'left',
+                            left: 'left',
                             data: names
                         },
                         calculable: true,
@@ -93,6 +98,75 @@
             }
         })
         $(window).resize(pieChart.resize);
+    })
+
+    //折线图
+    $(document).ready(function () {
+        //初始化ehcharts实例
+        var lineChart = echarts.init(document.getElementById("lineEcharts"));
+        //数据加载完之前先显示一段简单的loading动画
+        lineChart.showLoading();
+        //指定图表的配置项和数据
+        var names = []; //类别数组（实际放x轴坐标值）
+        var nums = []; //销量数组（Y坐标值）
+        $.ajax({
+            type: "post",
+            async: "true",//异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+            url: prefix + "/bgqk",
+            data: {},
+            dataType: "json",
+            success: function (result) {
+                if (result) {
+                    for (var i = 0; i < result.length; i++) {
+                        names.push(result[i].name);
+                        nums.push(result[i].num);
+                    }
+                    lineChart.hideLoading();//隐藏加载动画
+                    lineChart.setOption({//加载数据图表
+                        title: {
+                            text: '近7日不归情况统计',
+                            left: 'center'
+                        },
+                        //工具箱
+                        //保存图片
+                        toolbox: {
+                            show: true,
+                            feature: {
+                                saveAsImage: {
+                                    show: true
+                                }
+                            }
+                        },
+                        //图例-每一条数据的名字叫不归学生人数
+                        legend: {
+                            left: '60',
+                            data: ['不归人数']
+                        },
+                        //x轴
+                        xAxis: {
+                            type: 'category',
+                            boundaryGap: false,
+                            data: names
+                        },
+                        //y轴没有显式设置，根据值自动生成y轴
+                        yAxis: {
+                            type: 'value'
+                        },
+                        //数据-data是最终要显示的数据
+                        series: [{
+                            name: '不归人数',
+                            type: 'line',
+                            data: nums
+                        }]
+                    })
+                }
+            },
+            error: function (errorMsg) {
+                alert("图表请求数据失败");
+                lineChart.hideLoading();
+            }
+        })
+        $(window).resize(lineChart.resize);
     })
 
 </script>
