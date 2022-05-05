@@ -1,6 +1,8 @@
 package com.ruoyi.system.service.impl;
 
 import java.util.List;
+
+import com.ruoyi.system.domain.Echarts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.system.mapper.StudentInfoMapper;
@@ -42,6 +44,11 @@ public class StudentInfoServiceImpl implements IStudentInfoService
     public List<StudentInfo> selectStudentInfoList(StudentInfo studentInfo)
     {
         return studentInfoMapper.selectStudentInfoList(studentInfo);
+    }
+
+    @Override
+    public List<Echarts> countIsin() {
+        return studentInfoMapper.countIsin();
     }
 
     /**

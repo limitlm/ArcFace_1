@@ -1,6 +1,8 @@
 package com.ruoyi.system.mapper;
 
 import java.util.List;
+
+import com.ruoyi.system.domain.Echarts;
 import com.ruoyi.system.domain.StudentInfo;
 
 /**
@@ -26,6 +28,13 @@ public interface StudentInfoMapper
      * @return 学生信息集合
      */
     public List<StudentInfo> selectStudentInfoList(StudentInfo studentInfo);
+
+    /**
+     * 查询学生当前在寝状态人数
+     *
+     * @return 在寝状态List
+     */
+    List<Echarts> countIsin();
 
     /**
      * 新增学生信息

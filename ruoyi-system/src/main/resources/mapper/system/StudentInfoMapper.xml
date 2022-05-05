@@ -37,6 +37,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectStudentInfoVo"/>
         where idcard = #{idcard}
     </select>
+
+    <select id="countIsin" resultType="echarts">
+        SELECT si.isin AS name,COUNT(si.isin) AS num FROM student_info si GROUP BY isin
+    </select>
         
     <insert id="insertStudentInfo" parameterType="StudentInfo">
         insert into student_info
