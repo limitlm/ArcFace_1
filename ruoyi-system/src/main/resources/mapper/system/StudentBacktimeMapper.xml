@@ -29,7 +29,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectStudentBacktimeVo"/>
         where idcard = #{idcard}
     </select>
-        
+
+    <select id="countWg" resultType="echarts">
+        SELECT DATE_FORMAT(backtime,'%Y-%m-%d') AS name,COUNT(*) AS num FROM student_backtime WHERE backstatus='晚归' GROUP BY DATE_FORMAT(backtime,'%Y-%m-%d')
+    </select>
+
     <insert id="insertStudentBacktime" parameterType="StudentBacktime">
         insert into student_backtime
         <trim prefix="(" suffix=")" suffixOverrides=",">

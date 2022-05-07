@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.system.domain.Echarts;
 import com.ruoyi.system.service.IStudentAbnormalService;
+import com.ruoyi.system.service.IStudentBacktimeService;
 import com.ruoyi.system.service.IStudentInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +31,8 @@ public class StuAnalysisController extends BaseController {
     private IStudentInfoService iStudentInfoService;
     @Autowired
     private IStudentAbnormalService iStudentAbnormalService;
+    @Autowired
+    private IStudentBacktimeService iStudentBacktimeService;
 
     @GetMapping()
     public String stuanalysis() {
@@ -41,7 +44,7 @@ public class StuAnalysisController extends BaseController {
      */
     @PostMapping("/zqqk")
     @ResponseBody
-    public String list() {
+    public String zqqk() {
         List<Echarts> list = iStudentInfoService.countIsin();
         for (Echarts string : list) {
             System.out.println(string);
@@ -54,6 +57,36 @@ public class StuAnalysisController extends BaseController {
     /**
      * 查询在寝情况
      */
+    @PostMapping("/bgtop")
+    @ResponseBody
+    public String bgtop() {
+        List<Echarts> list = iStudentAbnormalService.countTop();
+        for (Echarts string : list) {
+            System.out.println(string);
+        }
+        //转换json
+        Gson gson = new Gson();
+        return gson.toJson(list);
+    }
+
+    /**
+     * 查询晚归人数
+     */
+    @PostMapping("/wgqk")
+    @ResponseBody
+    public String wgqk() {
+        List<Echarts> list = iStudentBacktimeService.countWg();
+        for (Echarts string : list) {
+            System.out.println(string);
+        }
+        //转换json
+        Gson gson = new Gson();
+        return gson.toJson(list);
+    }
+
+    /**
+     * 查询不归人数
+     */
     @PostMapping("/bgqk")
     @ResponseBody
     public String bgqk() {
@@ -65,6 +98,5 @@ public class StuAnalysisController extends BaseController {
         Gson gson = new Gson();
         return gson.toJson(list);
     }
-
 
 }

@@ -37,7 +37,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
     <select id="countAbn" resultType="echarts">
-        SELECT DATE_FORMAT(abntime,'%Y-%m-%d') AS name,COUNT(*) AS num FROM student_abnormal WHERE TO_DAYS(NOW())-TO_DAYS(abntime)&lt;7 GROUP BY DATE_FORMAT(abntime,'%Y-%m-%d')
+        SELECT DATE_FORMAT(abntime,'%Y-%m-%d') AS name,COUNT(*) AS num FROM student_abnormal GROUP BY DATE_FORMAT(abntime,'%Y-%m-%d')
+    </select>
+
+    <select id="countTop" resultType="echarts">
+        select CONCAT('学号:',idcard) AS name,COUNT(*) AS num FROM student_abnormal GROUP BY idcard ORDER BY num DESC LIMIT 10
     </select>
         
     <insert id="insertStudentAbnormal" parameterType="StudentAbnormal" useGeneratedKeys="true" keyProperty="num">

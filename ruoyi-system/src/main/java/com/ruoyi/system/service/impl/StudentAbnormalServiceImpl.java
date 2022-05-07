@@ -51,6 +51,11 @@ public class StudentAbnormalServiceImpl implements IStudentAbnormalService
         return studentAbnormalMapper.countAbn();
     }
 
+    @Override
+    public List<Echarts> countTop() {
+        return studentAbnormalMapper.countTop();
+    }
+
     /**
      * 新增不归记录
      * 

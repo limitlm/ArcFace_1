@@ -37,6 +37,13 @@ public interface StudentAbnormalMapper
     List<Echarts> countAbn();
 
     /**
+     * 查询不归排名前10的学号
+     *
+     * @return 不归排行前10的学号
+     */
+    List<Echarts> countTop();
+
+    /**
      * 新增不归记录
      * 
      * @param studentAbnormal 不归记录

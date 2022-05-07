@@ -1,6 +1,8 @@
 package com.ruoyi.system.service;
 
 import java.util.List;
+
+import com.ruoyi.system.domain.Echarts;
 import com.ruoyi.system.domain.StudentBacktime;
 
 /**
@@ -26,6 +28,13 @@ public interface IStudentBacktimeService
      * @return 归寝时间记录集合
      */
     public List<StudentBacktime> selectStudentBacktimeList(StudentBacktime studentBacktime);
+
+    /**
+     * 查询学生晚归人数
+     *
+     * @return 晚归人数List
+     */
+    List<Echarts> countWg();
 
     /**
      * 新增归寝时间记录

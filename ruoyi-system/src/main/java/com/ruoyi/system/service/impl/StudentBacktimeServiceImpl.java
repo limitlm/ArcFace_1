@@ -1,6 +1,8 @@
 package com.ruoyi.system.service.impl;
 
 import java.util.List;
+
+import com.ruoyi.system.domain.Echarts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.system.mapper.StudentBacktimeMapper;
@@ -42,6 +44,11 @@ public class StudentBacktimeServiceImpl implements IStudentBacktimeService
     public List<StudentBacktime> selectStudentBacktimeList(StudentBacktime studentBacktime)
     {
         return studentBacktimeMapper.selectStudentBacktimeList(studentBacktime);
+    }
+
+    @Override
+    public List<Echarts> countWg() {
+        return studentBacktimeMapper.countWg();
     }
 
     /**

@@ -30,11 +30,18 @@ public interface IStudentAbnormalService
     public List<StudentAbnormal> selectStudentAbnormalList(StudentAbnormal studentAbnormal);
 
     /**
-     * 查询学生当前在寝状态人数
+     * 查询不归人数
      *
-     * @return 在寝状态List
+     * @return 不归人数List
      */
     List<Echarts> countAbn();
+
+    /**
+     * 查询不归排行前10
+     *
+     * @return 不归前10学生学号List
+     */
+    List<Echarts> countTop();
 
     /**
      * 新增不归记录
